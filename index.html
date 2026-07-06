@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Site Intelligent</title>
+<style>
+body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #f1f5f9; color: #334155; }
+header { background: #1e3a8a; color: white; padding: 30px; text-align: center; }
+.container { max-width: 800px; margin: 30px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.selector { text-align: center; margin-bottom: 25px; }
+select { padding: 10px 15px; font-size: 16px; border-radius: 5px; border: 1px solid #cbd5e1; }
+h1 { margin: 0 0 10px 0; font-size: 28px; }
+.features { display: block; margin-top: 20px; }
+.card { background: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin-bottom: 10px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<header>
+<h1 id="site-title">Bienvenue sur votre site</h1>
+<p id="site-subtitle">Sélectionnez votre type de projet ci-dessous</p>
+</header>
+<div class="container">
+<div class="selector">
+<label for="project-type"><strong>Choisir la thématique : </strong></label>
+<select id="project-type" onchange="adapterLeSite()">
+<option value="blog">Création de Contenu & Blog</option>
+<option value="shop">Boutique en Ligne (E-commerce)</option>
+<option value="portfolio">Portfolio Professionnel</option>
+</select>
+</div>
+
+<h2 id="section-title">À propos de ce projet</h2>
+<p id="section-desc">Le contenu s'adaptera automatiquement en fonction de votre choix.</p>
+<div class="features" id="features-list">
+<!-- Rempli dynamiquement par le script -->
+</div>
+</div>
+<script>
+const configurations = {
+blog: {
+title: "Le Hub des Créateurs de Contenu",
+subtitle: "Articles, scripts et stratégies d'avenir pour votre visibilité.",
+secTitle: "Dernières Publications Éditées par IA",
+desc: "Explorez nos contenus optimisés pour capter l'attention des algorithmes modernes.",
+cards: ["Comment structurer son contenu pour ChatGPT", "Écrire un script vidéo percutant en 5 minutes", "Les secrets du SEO sémantique en 2026"]
+},
+shop: {
+title: "Boutique Éco-Responsable",
+subtitle: "Des produits pensés pour l'avenir, zéro déchet, impact maximum.",
+secTitle: "Nos Produits Vedettes",
+desc: "Achetez intelligemment des solutions conçues de manière circulaire et durable.",
+cards: ["Pack de démarrage Zéro Déchet - 29€", "Accès à la plateforme de location d'outils - 9€/mois", "Objets du quotidien en mycélium compostable"]
+},
+portfolio: {
+title: "Portfolio de Développeur Web",
+subtitle: "Création d'interfaces adaptatives et d'outils automatisés complexes.",
+secTitle: "Projets Récents & Applications Réalisées",
+desc: "Découvrez mes réalisations techniques intégrant de l'intelligence artificielle.",
+cards: ["Développement d'un plugin d'optimisation IA", "Architecture de site web adaptatif temps réel", "Interface d'automatisation de flux réseaux"]
+}
+};
+function adapterLeSite() {
+const choix = document.getElementById('project-type').value;
+const data = configurations[choix];
+document.getElementById('site-title').innerText = data.title;
+document.getElementById('site-subtitle').innerText = data.subtitle;
+document.getElementById('section-title').innerText = data.secTitle;
+document.getElementById('section-desc').innerText = data.desc;
+const listContainer = document.getElementById('features-list');
+listContainer.innerHTML = '';
+data.cards.forEach(item => {
+const div = document.createElement('div');
+div.className = 'card';
+div.innerHTML = `<strong>${item}</strong>`;
+listContainer.appendChild(div);
+});
+}
+
+// Lancement initial au chargement de la page
+window.onload = adapterLeSite;
+</script>
+</body>
+</html>
